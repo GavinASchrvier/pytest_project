@@ -7,3 +7,6 @@ class PhoneBook:
 
     def lookup(self, name):
         return self.records[name]
+
+    def names(self):
+        return self.records.keys()
