@@ -8,9 +8,11 @@ def test_lookup_by_name(phonebook):
     assert "12345" == phonebook.lookup("Bob")
 
 
-@pytest.fixture()
-def phonebook():
-    return PhoneBook()
+@pytest.fixture
+def phonebook(tmpdir):
+    phonebook = PhoneBook(tmpdir)
+    yield phonebook
+    phonebook.clear()
 
 
 def test_phonebook_contains_all_names(phonebook):
@@ -20,6 +22,7 @@ def test_phonebook_contains_all_names(phonebook):
     assert "Bob", "Susy" in names
 
 
+@pytest.mark.coolit
 def test_name_not_found(phonebook):
     with pytest.raises(KeyError):
         phonebook.lookup("Bob")
